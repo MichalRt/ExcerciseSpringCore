@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <import resource="user.xml"/>
+    <import resource="auditorium.xml"/>
+    <import resource="event.xml"/>
+    <import resource="discount.xml"/>
+
+
+    <bean id="userStorage" class="ua.epam.spring.hometask.repository.DataStorage">
+        <property name="userDatabase" ref="userMap"/>
+        <property name="auditoriumDatabase" ref="auditoriumMap"/>
+        <property name="eventDatabase" ref="eventMap"/>
+    </bean>
+
+
+    <bean id="userService" class="ua.epam.spring.hometask.service.UserServiceImpl"/>
+
+    <bean id="app" class="ua.epam.spring.hometask.App">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="auditoriumSevice"/>
+        <constructor-arg ref="eventService"/>
+        <constructor-arg ref="discountManager"/>
+        <constructor-arg ref="discountManager"/>
+    </bean>
+
+    <bean id="util" class="ua.epam.spring.hometask.utils.util"/>
+
+</beans>

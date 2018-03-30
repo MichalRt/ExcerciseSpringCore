@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+    <util:map id="userMap" map-class="java.util.HashMap">
+        <entry key="1" value-ref="user1"/>
+        <entry key="2" value-ref="user2"/>
+    </util:map>
+
+
+    <bean id="user1" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="#{1L}"/>
+        <property name="firstName" value="#{'firstNameA'}"/>
+        <property name="lastName" value="#{'lastNameA'}"/>
+        <property name="email" value="#{'emailA'}"/>
+        <property name="tickets" value="#{null}"/>
+        <property name="DateofBirth" value="#{util.convertLocalDate('2018-03-27')}"/>
+    </bean>
+
+    <bean id="user2" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="#{2L}"/>
+        <property name="firstName" value="#{'firstNameB'}"/>
+        <property name="lastName" value="#{'lastNameB'}"/>
+        <property name="email" value="#{'emailB'}"/>
+        <property name="tickets" value="#{null}"/>
+        <property name="DateofBirth" value="#{util.convertLocalDate('2017-03-27')}"/>
+    </bean>
+
+
+</beans>

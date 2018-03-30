@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+
+    <bean id="birthdaydiscount" class="ua.epam.spring.hometask.service.discountStrategy.BirthdaysDiscount"/>
+
+    <bean id="ticketdiscount" class="ua.epam.spring.hometask.service.discountStrategy.EveryTenTicketDiscount"/>
+
+
+    <bean id="discountManager" class="ua.epam.spring.hometask.service.discountStrategy.DiscountManager">
+        <constructor-arg>
+        <list>
+            <ref bean="birthdaydiscount" />
+            <ref bean="ticketdiscount" />
+        </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="discountService" class="ua.epam.spring.hometask.service.DiscountServiceImpl">
+    <constructor-arg ref="discountManager"/>
+    </bean>
+
+
+    <!--<util:list id="discountStrategyList" value-type="ua.epam.spring.hometask.service.strategies.DiscountManager">-->
+        <!--<ref bean="discountBirthStrategy"/>-->
+        <!--<ref bean="discount10thTicketStrategy"/>-->
+    <!--</util:list>-->
+
+
+</beans>

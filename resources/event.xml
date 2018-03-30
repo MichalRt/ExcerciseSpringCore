@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:contex="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>file:resources/auditorium1.properties</value>
+                <value>file:resources/auditorium2.properties</value>
+                <value>file:resources/auditorium3.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesMode">
+            <util:constant
+                static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        </property>
+    </bean>
+
+
+    <bean id="event1" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="Gig"/>
+        <property name="basePrice" value="1113"/>
+    </bean>
+
+    <bean id="event2" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="Audio"/>
+        <property name="basePrice" value="5"/>
+    </bean>
+
+    <bean id="event3" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="Video"/>
+        <property name="basePrice" value="123"/>
+    </bean>
+
+
+    <util:map id="eventMap" map-class="java.util.HashMap">
+        <entry key="1" value-ref="event1"/>
+        <entry key="2" value-ref="event2"/>
+        <entry key="3" value-ref="event3"/>
+    </util:map>
+
+    <bean id="eventService" class="ua.epam.spring.hometask.service.EventServiceImpl">
+    </bean>
+
+
+</beans>

@@ -1,11 +1,16 @@
 package ua.epam.spring.hometask.domain;
 
+import static java.util.Arrays.*;
+
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  * @author Yuriy_Tkach
@@ -21,6 +26,12 @@ public class Auditorium {
     public Auditorium() {
     }
 
+    public Auditorium(String name, long numberOfSeats, String vipSeats) {
+        this.name = name;
+        this.numberOfSeats = numberOfSeats;
+        this.vipSeats = splitStringtoSet(vipSeats);
+    }
+
     /**
      * Counts how many vip seats are there in supplied <code>seats</code>
      * 
@@ -30,6 +41,12 @@ public class Auditorium {
      */
     public long countVipSeats(Collection<Long> seats) {
         return seats.stream().filter(seat -> vipSeats.contains(seat)).count();
+    }
+
+    private Set<Long> splitStringtoSet(String vipSeats) {
+        return Stream.of(vipSeats.split(","))
+            .map(Long::parseLong)
+            .collect(Collectors.toSet());
     }
 
     public String getName() {
@@ -60,6 +77,7 @@ public class Auditorium {
         this.vipSeats = vipSeats;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -87,4 +105,12 @@ public class Auditorium {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Auditorium{" +
+            "name='" + name + '\'' +
+            ", numberOfSeats=" + numberOfSeats +
+            ", vipSeats=" + vipSeats +
+            '}';
+    }
 }
